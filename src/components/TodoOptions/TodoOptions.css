@@ -1,0 +1,12 @@
+.TodoOptions{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 58px;
+    width: 100%;
+    border-bottom: 1px solid #BDBDBD;
+    list-style: none;
+}
+.TodoOptions li{
+    padding: 15px 0;
+    cursor: pointer;
+}

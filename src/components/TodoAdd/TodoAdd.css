@@ -1,0 +1,23 @@
+.TodoAdd{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.TodoAdd input{
+    padding: 20px 12px;
+    width: 75%;
+    border: 1px solid #BDBDBD;
+    border-radius: 12px;
+}
+.TodoAdd input:focus{
+    outline: 1px solid #2F80ED;
+}
+.TodoAdd button{
+    padding: 2Opx;
+    width: 15%;
+    background-color: #2F80ED;
+    color: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 12px;
+    cursor: pointer;
+}

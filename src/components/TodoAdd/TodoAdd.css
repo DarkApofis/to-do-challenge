@@ -13,10 +13,9 @@
     outline: 1px solid #2F80ED;
 }
 .TodoAdd button{
-    padding: 2Opx;
     width: 15%;
     background-color: #2F80ED;
-    color: #FFFFFF;
+    color: #000000;
     border: 1px solid #BDBDBD;
     border-radius: 12px;
     cursor: pointer;

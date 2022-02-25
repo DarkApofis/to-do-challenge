@@ -1,0 +1,16 @@
+.TodoItem{
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+}
+.TodoItem input{
+    margin-right: 15px;
+    width: 24px;
+    height: 24px;
+}
+.TodoItem p{
+    font-size: 1,125rem;
+}
+.completed{
+    text-decoration: line-through;
+}

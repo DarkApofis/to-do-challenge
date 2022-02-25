@@ -1,9 +1,22 @@
+import { useState } from 'react'
 import './TodoAdd.css'
-function TodoAdd(){
+function TodoAdd({addTodo}){
+
+    const [todo, setTodo] = useState("")
+
     return (
         <form className='TodoAdd'>
-            <input type="text" placeholder="add details"/>
-            <button type="submit">Add</button>
+            <input 
+                value={todo} 
+                type="text" 
+                placeholder="add details"
+                onChange={(event) => (
+                    setTodo(event.target.value)
+                )}
+            />
+            <button 
+                onClick={() => addTodo(todo)} 
+                type="button">Add</button>
         </form>
     )
 }

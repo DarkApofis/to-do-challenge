@@ -1,29 +1,29 @@
-import { useState } from 'react'
+import useLocalStorage from './hooks/useLocalStorage'
 import TodoHeader from './containers/TodoHeader/TodoHeader'
 import TodoMainContent from './containers/TodoMainContent/TodoMainContent'
 import TodoOptions from './components/TodoOptions/TodoOptions'
 import TodoAdd from './components/TodoAdd/TodoAdd'
 import TodoItem from './components/TodoItem/TodoItem'
+import { useState } from 'react'
 // import './App.css'
 
-const defaultTodos = [
-  {todo: "Pruebas1", completed: false},
-  {todo: "Pruebas2", completed: false},
-  {todo: "Pruebas3", completed: false},
-]
-
-
-
 function App() {
-  const [todos, setTodos] = useState(defaultTodos)
+  const [option, setOption] = useState("All")
+  const {item: todos, saveItem: saveTodos} = useLocalStorage("TODOS", []);
 
-  const addTodo = (todo) => {
+  const activeTodos = todos.filter(todo => todo.completed === false);
+  const completedTodos = todos.filter(todo => todo.completed === true);
+
+  const addTodo = (task) => {
+    const todoIndex = todos.findIndex(todo => todo.todo === task)
     const newTodo = [...todos]
-    newTodo.push({
-        todo,
+    if(task.length && todoIndex === -1){
+      newTodo.push({
+        todo: task,
         completed: false
-    })
-    setTodos(newTodo)
+      })
+    }
+    saveTodos(newTodo)
   }
 
   const completeTodo = (task) => {
@@ -34,20 +34,38 @@ function App() {
     }else{
       newTodo[todoIndex].completed = true
     }
-    console.log(newTodo)
-    setTodos(newTodo)
+    saveTodos(newTodo)
+  }
+
+  const deleteTodo = (task) => {
+    const todoIndex = todos.findIndex(todo => todo.todo === task)
+    const newTodo = [...todos]
+    newTodo.splice(todoIndex, 1)
+    saveTodos(newTodo)
   }
 
   return (
     <>
       <TodoHeader>
-        <TodoOptions/>
+        <TodoOptions setOption={setOption} option={option}/>
       </TodoHeader>
       <TodoMainContent>
-        <TodoAdd addTodo={addTodo} setTodos={setTodos}/>
-        {todos.map(todo => (
-          <TodoItem key={crypto.randomUUID()} {...todo} completeTodo={completeTodo}/>
-        ))}
+        <TodoAdd addTodo={addTodo} setTodos={saveTodos}/>
+        {option === "All" && (
+          todos.map(todo => (
+            <TodoItem key={crypto.randomUUID()} {...todo} completeTodo={completeTodo}/>
+          ))
+        )}
+        {option === "Active" && (
+          activeTodos.map(todo => (
+            <TodoItem key={crypto.randomUUID()} {...todo} completeTodo={completeTodo}/>
+          ))
+        )}
+        {option === "Completed" && (
+          completedTodos.map(todo => (
+            <TodoItem option={option} key={crypto.randomUUID()} {...todo} completeTodo={completeTodo} deleteTodo={deleteTodo}/>
+          ))
+        )}
       </TodoMainContent>
     </>
   )

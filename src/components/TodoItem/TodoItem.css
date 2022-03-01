@@ -1,7 +1,13 @@
+.TodoItem-Container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+}
 .TodoItem{
     display: flex;
     align-items: center;
-    margin-top: 32px;
+
 }
 .TodoItem input{
     margin-right: 15px;
